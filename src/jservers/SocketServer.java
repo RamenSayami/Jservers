@@ -62,7 +62,7 @@ class ServerThread extends Thread {
                 Order row = (Order) streamIn.readObject();
                 
                 DefaultTableModel model = (DefaultTableModel) ui.Cash_table.getModel();
-                model.addRow(new Object[]{row.getTableNo(),row.getDishName(),row.getQuantity(),row.getStatus(),row.getUnitPrice()});
+                model.addRow(new Object[]{row.getTableNo(),row.getDishName(),row.getQuantity(),row.getStatusString(),row.getUnitPrice()});
     	    	//server.handle(ID, msg);
             }
             catch(Exception ioe){  
