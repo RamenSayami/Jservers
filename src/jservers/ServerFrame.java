@@ -76,10 +76,8 @@ public class ServerFrame extends javax.swing.JFrame {
 		});
 
 		Cash_table.setModel(new javax.swing.table.DefaultTableModel(
-				new Object[][] { { null, null, null, null, null },
-						{ null, null, null, null, null },
-						{ null, null, null, null, null },
-						{ null, null, null, null, null } }, new String[] {
+				new Object[][] { 
+						 }, new String[] {
 						"TableNo", "Dish Name", "Quantity", "Order Status",
 						"Unit Price" }) {
 			Class[] types = new Class[] { java.lang.Integer.class,
@@ -189,16 +187,20 @@ public class ServerFrame extends javax.swing.JFrame {
 	}// GEN-LAST:event_b_startServerActionPerformed
 
 	private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
-	// try {
-	// // TODO add your handling code here:
-	// String mssg = jTextField1.getText();
-	// DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
-	// dos.writeUTF(mssg);
-	// // DataInputStream dis = new DataInputStream(socket.getInputStream());
-	// } catch (IOException ex) {
-	// Logger.getLogger(ServerFrame.class.getName()).log(Level.SEVERE, null,
-	// ex);
-	// }
+		
+		
+		// try {
+		// // TODO add your handling code here:
+		// String mssg = jTextField1.getText();
+		// DataOutputStream dos = new
+		// DataOutputStream(socket.getOutputStream());
+		// dos.writeUTF(mssg);
+		// // DataInputStream dis = new
+		// DataInputStream(socket.getInputStream());
+		// } catch (IOException ex) {
+		// Logger.getLogger(ServerFrame.class.getName()).log(Level.SEVERE, null,
+		// ex);
+		// }
 	}// GEN-LAST:event_jButton1ActionPerformed
 
 	private void b_printActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_b_printActionPerformed

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model;
+package com.example.ramen.menu.Model;
 
 import java.io.Serializable;
 
@@ -24,14 +24,14 @@ public class Order implements Serializable {
 
 	}
 
-	public Order(Integer TableNo, String DishName, Integer Quantity,
-			OrderStatus Status, Integer UnitPrice) {
-		this.TableNo = TableNo;
-		this.DishName = DishName;
-		this.Quantity = Quantity;
-		this.Status = Status;
-		this.UnitPrice = UnitPrice;
-	}
+//	public Order(Integer TableNo, String DishName, Integer Quantity,
+//			OrderStatus Status, Integer UnitPrice) {
+//		this.TableNo = TableNo;
+//		this.DishName = DishName;
+//		this.Quantity = Quantity;
+//		this.Status = Status;
+//		this.UnitPrice = UnitPrice;
+//	}
 
 	public Order(Integer TableNo, String DishName, Integer Quantity,
 			String Status, Integer UnitPrice) {
