@@ -8,8 +8,9 @@ package com.example.ramen.menu.Model;
 /**
  *
  * @author shreejal
+ * TODO depricate uncooked
  */
 public enum OrderStatus {
-    ORDER_IN, CANCELLED,UNCOOKED, COOKING, COOKED, DELIVERED, ONBILL, PAID 
-    
+	ORDER_IN, CANCELLED, COOKING, COOKED, DELIVERED, ONBILL, PAID, UNCOOKED
+
 }

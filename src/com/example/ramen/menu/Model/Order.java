@@ -10,6 +10,7 @@ import java.io.Serializable;
 /**
  *
  * @author shreejal
+ * TODO Change UnitPrice to Float
  */
 public class Order implements Serializable {
 
@@ -34,11 +35,11 @@ public class Order implements Serializable {
 //	}
 
 	public Order(Integer TableNo, String DishName, Integer Quantity,
-			String Status, Integer UnitPrice) {
+			OrderStatus uncooked, Integer UnitPrice) {
 		this.TableNo = TableNo;
 		this.DishName = DishName;
 		this.Quantity = Quantity;
-		this.Status = castObject(Status);
+		this.Status = uncooked;
 		this.UnitPrice = UnitPrice;
 	}
 
