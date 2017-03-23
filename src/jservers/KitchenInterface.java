@@ -31,7 +31,8 @@ public class KitchenInterface extends javax.swing.JFrame {
 	// Socket client;
 	// Socket socket;
 
-	public List<Order> mainOrderList = new ArrayList<Order>();
+	public List<Order> orderInList = new ArrayList<Order>();
+	public List<Order> deliveriesList = new ArrayList<Order>();
 
 	static Socket s;
 	static DataInputStream din;
@@ -236,29 +237,60 @@ public class KitchenInterface extends javax.swing.JFrame {
 	}// GEN-LAST:event_UnCookedButtonActionPerformed
 
 	private void CookingButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_CookingButtonActionPerformed
-		// TODO add your handling code here:
-
-		TableModel model = OrderInTable.getModel();
 		int[] index = OrderInTable.getSelectedRows();
-		Object rowData[] = new Object[5];
-		DefaultTableModel model2 = (DefaultTableModel) OrderInTable.getModel();
+
+		// TableModel model = OrderInTable.getModel();
+		//
+		// Object rowData[] = new Object[5];
+		// DefaultTableModel model2 = (DefaultTableModel)
+		// OrderInTable.getModel();
+		// if (index.length > 0) {
+		// for (int i = 0; i < index.length; i++) {
+		// rowData[0] = model.getValueAt(index[i], 0);
+		// rowData[1] = model.getValueAt(index[i], 1);
+		// rowData[2] = model.getValueAt(index[i], 2);
+		// rowData[3] = model.getValueAt(index[i], 3);
+		// if (!rowData[3].equals("ORDER_IN")) {
+		// JOptionPane.showMessageDialog(null,
+		// "Only select ORDER_IN row");
+		// continue;
+		// }
+		// rowData[3] = OrderStatus.COOKING.toString();
+		// // rowData[4] = model.getValueAt(index[i], 4);
+		// model2.removeRow(index[i]);
+		// model2.addRow(rowData);
+		// }
+		// }
+		//
+		// TODO update order with orderStatus (COOKING) from (ORDER_IN)
+		boolean changes = false;
 		if (index.length > 0) {
 			for (int i = 0; i < index.length; i++) {
-				rowData[0] = model.getValueAt(index[i], 0);
-				rowData[1] = model.getValueAt(index[i], 1);
-				rowData[2] = model.getValueAt(index[i], 2);
-				rowData[3] = model.getValueAt(index[i], 3);
-				if (!rowData[3].equals("ORDER_IN")) {
+
+				Order selectedOrder = orderInList.get(index[i]);
+				if (selectedOrder.getStatusString().equals(
+						OrderStatus.ORDER_IN.toString())) {
+					changes = true;
+//					System.out.println("Changes = true");
+					Order changedOrder = new Order(selectedOrder.getTableNo(),
+							selectedOrder.getDishName(),
+							selectedOrder.getQuantity(), OrderStatus.COOKING,
+							selectedOrder.getUnitPrice());
+					updateOrderList(index[i], changedOrder);
+					// mainOrderList.remove(index[i]);
+					// mainOrderList.add();
+				} else {
 					JOptionPane.showMessageDialog(null,
 							"Only select ORDER_IN row");
-					continue;
+
 				}
-				rowData[3] = OrderStatus.COOKING.toString();
-				// rowData[4] = model.getValueAt(index[i], 4);
-				model2.removeRow(index[i]);
-				model2.addRow(rowData);
+
 			}
 		}
+		// if(changes){
+		// updateList();
+		// }
+
 	}// GEN-LAST:event_CookingButtonActionPerformed
 
 	private void DeliveredButtonActionPerformed(java.awt.event.ActionEvent evt) {
@@ -266,31 +298,60 @@ public class KitchenInterface extends javax.swing.JFrame {
 	}
 
 	private void CookedButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_CookedButtonActionPerformed
-		// TODO add your handling code here:
-		DefaultTableModel model = (DefaultTableModel) OrderInTable.getModel();
+		// DefaultTableModel model = (DefaultTableModel)
+		// OrderInTable.getModel();
+		// int[] index = OrderInTable.getSelectedRows();
+		// Object rowData[] = new Object[5];
+		//
+		// for (int i = 0; i < index.length; i++) {
+		// rowData[0] = model.getValueAt(index[i], 0);
+		// rowData[1] = model.getValueAt(index[i], 1);
+		// rowData[2] = model.getValueAt(index[i], 2);
+		// rowData[3] = model.getValueAt(index[i], 3);
+		// if (!rowData[3].equals("COOKING")) {
+		// JOptionPane.showMessageDialog(null, "Only select COOKING row");
+		// break;
+		// }
+		// rowData[3] = OrderStatus.COOKED.toString();
+		// // rowData[4] = model.getValueAt(index[i], 4);
+		//
+		// model.removeRow(index[i]);
+		// DefaultTableModel model2 = (DefaultTableModel) DeliveryTable
+		// .getModel();
+		// Object deliveryData[] = new Object[3];
+		// deliveryData[0] = rowData[0];
+		// deliveryData[1] = rowData[1];
+		// deliveryData[2] = rowData[2];
+		// model2.addRow(deliveryData);
+		// }
+
 		int[] index = OrderInTable.getSelectedRows();
-		Object rowData[] = new Object[5];
 
-		for (int i = 0; i < index.length; i++) {
-			rowData[0] = model.getValueAt(index[i], 0);
-			rowData[1] = model.getValueAt(index[i], 1);
-			rowData[2] = model.getValueAt(index[i], 2);
-			rowData[3] = model.getValueAt(index[i], 3);
-			if (!rowData[3].equals("COOKING")) {
-				JOptionPane.showMessageDialog(null, "Only select COOKING row");
-				break;
+		boolean changes = false;
+		if (index.length > 0) {
+			for (int i = 0; i < index.length; i++) {
+
+				Order selectedOrder = orderInList.get(index[i]);
+				if (selectedOrder.getStatusString().equals(
+						OrderStatus.COOKING.toString())) {
+					changes = true;
+//					System.out.println("Cooking Changes = true");
+					Order changedOrder = new Order(selectedOrder.getTableNo(),
+							selectedOrder.getDishName(),
+							selectedOrder.getQuantity(), OrderStatus.COOKED,
+							selectedOrder.getUnitPrice());
+
+					orderInList.remove(index[i]);
+					addToDeliverList(changedOrder);
+					updateOrderTable();
+
+				} else {
+					JOptionPane.showMessageDialog(null,
+							"Only select COOKING row");
+
+				}
+
 			}
-			rowData[3] = OrderStatus.COOKED.toString();
-			// rowData[4] = model.getValueAt(index[i], 4);
-
-			model.removeRow(index[i]);
-			DefaultTableModel model2 = (DefaultTableModel) DeliveryTable
-					.getModel();
-			Object deliveryData[] = new Object[3];
-			deliveryData[0] = rowData[0];
-			deliveryData[1] = rowData[1];
-			deliveryData[2] = rowData[2];
-			model2.addRow(deliveryData);
 		}
 
 	}// GEN-LAST:event_CookedButtonActionPerformed
@@ -384,27 +445,58 @@ public class KitchenInterface extends javax.swing.JFrame {
 		server = new SocketServer(this, port);
 	}
 
-	public void addToList(Order order) {
-		mainOrderList.add(order);
-		updateList();
+	public void addToOrderList(Order order) {
+		orderInList.add(order);
+		updateOrderTable();
 	}
 
-	public void updateList() {
-		if (!mainOrderList.isEmpty()) {
-			for (Order orderRow : mainOrderList) {
-				DefaultTableModel model = (DefaultTableModel) OrderInTable
-						.getModel();
+	public void updateOrderList(int pos, Order order) {
+		orderInList.set(pos, order);
+		updateOrderTable();
+
+	}
+
+	public void updateOrderTable() {
+		DefaultTableModel model = (DefaultTableModel) OrderInTable
+				.getModel();
+		if (!orderInList.isEmpty()) {
+			while (model.getRowCount() != 0) {
+				model.removeRow(model.getRowCount() - 1);
+			}
+
+			for (Order orderRow : orderInList) {
 				model.addRow(new Object[] { orderRow.getTableNo(),
 						orderRow.getDishName(), orderRow.getQuantity(),
-						orderRow.getStatusString() });				
+						orderRow.getStatusString() });
 			}
+		}else{
+			while (model.getRowCount() != 0) {
+				model.removeRow(model.getRowCount() - 1);
+			}
+
 		}
 	}
-	
-	public void updateList(int pos, Order order){
-		mainOrderList.remove(pos);
-		mainOrderList.add(order);
-		updateList();
-		
+
+	public void addToDeliverList(Order order) {
+		deliveriesList.add(order);
+		updateDeliverTable();
+	}
+
+	public void updateDeliverTable() {
+		DefaultTableModel model1 = (DefaultTableModel) DeliveryTable
+				.getModel();
+		if (!deliveriesList.isEmpty()) {
+			while (model1.getRowCount() != 0) {
+				model1.removeRow(model1.getRowCount() - 1);
+			}
+			for (Order order : deliveriesList) {
+				model1.addRow(new Object[] { order.getTableNo(),
+						order.getDishName(), order.getQuantity() });
+			}
+		}else{
+			while (model1.getRowCount() != 0) {
+				model1.removeRow(model1.getRowCount() - 1);
+			}
+		}
 	}
 }

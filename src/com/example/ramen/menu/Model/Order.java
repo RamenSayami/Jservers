@@ -35,11 +35,11 @@ public class Order implements Serializable {
 //	}
 
 	public Order(Integer TableNo, String DishName, Integer Quantity,
-			OrderStatus uncooked, Integer UnitPrice) {
+			OrderStatus status, Integer UnitPrice) {
 		this.TableNo = TableNo;
 		this.DishName = DishName;
 		this.Quantity = Quantity;
-		this.Status = uncooked;
+		this.Status = status;
 		this.UnitPrice = UnitPrice;
 	}
 

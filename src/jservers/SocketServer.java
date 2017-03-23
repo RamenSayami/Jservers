@@ -60,25 +60,40 @@ class ServerThread extends Thread {
 	public void run() {
 		// ui.ta_server.append("\nServer Thread " + ID + " running.");
 
-		while (true) {
+		while (socket.isConnected()) {
+			System.out.println("ClientName: "+ClientName);
+			//TODO ask client for its name
+			//TODO Send out an askName.class object
+			//TODO if recieved messae is not order, its gotta be askName, It should return names
+			//TODO better if create enum for it? or jus simple strings?
+			
+			if(ClientName == null){
+//				askName();
+			}
+			
 			try {
 				// streamIn =new ObjectInputStream(socket.getInputStream());
-
+				
 				Object obj = streamIn.readObject();
 				Order order = (Order) obj;
 //				ui.addToList(order);
+					//TODO add object in ui.OrderList 
+					
+				ui.addToOrderList(order);
 				
-				DefaultTableModel model = (DefaultTableModel) ui.OrderInTable
-						.getModel();
-				model.addRow(new Object[] { order.getTableNo(),
-						order.getDishName(), order.getQuantity(),
-						order.getStatusString() });
+				
+//				DefaultTableModel model = (DefaultTableModel) ui.OrderInTable
+//						.getModel();
+//				model.addRow(new Object[] { order.getTableNo(),
+//						order.getDishName(), order.getQuantity(),
+//						order.getStatusString() });
 				// server.handle(ID, msg);
 			} catch (Exception ioe) {
 				System.out.println(ID + " ERROR reading: " + ioe.getMessage());
 				// server.remove(ID);
 				ioe.printStackTrace();
-
+				//TODO catch myName.class object as well, to find out the name of the client
+				
 				stop();
 			}
 		}
@@ -165,6 +180,7 @@ public class SocketServer implements Runnable {
 //				ui.ta_server.append("\nWaiting for a client ...");
 //				addThread(server.accept());
 				System.out.println("\nWaiting for a client ...");
+				
 				addThread(server.accept());
 			} catch (Exception ioe) {
 //				ui.ta_server.append("\nServer error: \n");
