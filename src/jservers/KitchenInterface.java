@@ -292,9 +292,19 @@ public class KitchenInterface extends javax.swing.JFrame {
 		// }
 
 	}// GEN-LAST:event_CookingButtonActionPerformed
-
+	
+	
 	private void DeliveredButtonActionPerformed(java.awt.event.ActionEvent evt) {
 		// TODO send data to cashier
+		int[] index = DeliveryTable.getSelectedRows();
+		int clientNo = server.find("Cashier");
+		if(clientNo!=-1){
+			for(int i =0 ; i<index.length;i++){
+				Order selectedOrder = deliveriesList.get(index[i]);
+				server.clients[clientNo].send(selectedOrder);
+			}
+		}
+		
 	}
 
 	private void CookedButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_CookedButtonActionPerformed
